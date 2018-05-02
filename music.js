@@ -11,7 +11,7 @@ function addSongFromField(event) {
 }
 
 $('#addButton').click(addSongFromField);
-$('#musicField').keyup(function(event) {
+$('#musicField').keyup(function (event) {
   if (event.which == 13) { // User presses Enter
     addSongFromField(event);
   }
@@ -30,7 +30,17 @@ function renderList() {
 }
 
 $('#getPlaylistBtn').click(function (event) {
-  // TODO: Display a list of music.
-  // You may use anything from musicInfo.
+
+  let params = '';
+  musicInfo.forEach((i) => {
+    params += i + '+';
+  });
+
+  $.ajax({
+    url: 'https://itunes.apple.com/search?term=' + params
+  }).then((data) => {
+    console.log(JSON.parse(data));
+  });
+
   console.log('Testing Music Call');
 });
